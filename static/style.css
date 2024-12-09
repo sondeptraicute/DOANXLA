@@ -1,0 +1,263 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Video Background */
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Đặt video dưới tất cả nội dung */
+}
+/* Thiết lập chung cho toàn bộ trang */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #0066cc;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Wrapper cho loading */
+.wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Dots trong loading */
+.wrapper div {
+    height: 60px;
+    width: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 100px;
+    position: absolute;
+    animation: animate 4s linear infinite;
+}
+
+div .dot {
+    height: 5px;
+    width: 5px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 20%;
+    right: 20%;
+}
+
+/* Tùy chỉnh vị trí và độ trễ */
+.wrapper div:nth-child(2) { top: 20%; left: 20%; animation-delay: 0.2s; }
+.wrapper div:nth-child(3) { top: 60%; left: 80%; animation-delay: 0.4s; }
+.wrapper div:nth-child(4) { top: 40%; left: 40%; animation-delay: 0.6s; }
+.wrapper div:nth-child(5) { top: 66%; left: 30%; animation-delay: 0.8s; }
+.wrapper div:nth-child(6) { top: 90%; left: 10%; animation-delay: 1s; }
+.wrapper div:nth-child(7) { top: 30%; left: 60%; animation-delay: 1.2s; }
+.wrapper div:nth-child(8) { top: 70%; left: 20%; animation-delay: 1.4s; }
+.wrapper div:nth-child(9) { top: 75%; left: 60%; animation-delay: 1.6s; }
+.wrapper div:nth-child(10) { top: 50%; left: 50%; animation-delay: 1.8s; }
+
+@keyframes animate {
+    0% {
+        transform: scale(0) translateY(0) rotate(70deg);
+    }
+    100% {
+        transform: scale(1.3) translateY(-100px) rotate(360deg);
+    }
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 2.5em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+/* Form tải lên */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(236, 236, 236, 0.59);
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px 30px;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+}
+
+/* Ẩn input[type="file"] mặc định */
+input[type="file"] {
+    display: none;
+    position: absolute;
+    z-index: 2; /* Đảm bảo input có z-index cao */
+    opacity: 0;
+}
+
+/* Nút bấm thay thế cho input file */
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: white;
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 1; /* Đảm bảo label có z-index thấp hơn input */
+}
+
+/* Hiệu ứng hover cho nút upload */
+.custom-file-upload:hover {
+    background: linear-gradient(45deg, #00f2fe, #4facfe);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Hiển thị tên tệp đã chọn */
+.file-name {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Nút bấm upload */
+button {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    color: white;
+    font-size: 1em;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Vùng hiển thị ảnh */
+img {
+    margin: 20px 0;
+    max-width: 300px; /* Giới hạn chiều rộng */
+    max-height: 300px; /* Giới hạn chiều cao */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    object-fit: cover; /* Cắt ảnh nếu vượt quá khung */
+}
+
+/* Hiệu ứng hover cho ảnh - phóng to và làm nổi bật */
+img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Danh sách kết quả */
+ul {
+    list-style-type: none;
+    background: rgba(236, 236, 236, 0.59);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+li {
+    font-size: 1em;
+    margin: 5px 0;
+    padding: 5px 10px;
+    background: #fc8931b0;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+li:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.03);
+}
+
+/* Hiệu ứng loading mới - Moving Bars / Laser Wave */
+.loading {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.loading-content {
+    position: relative;
+    text-align: center;
+    color: #00ff00;
+    font-size: 1.5em;
+    padding: 20px;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 255, 0, 0.5);
+}
+
+.loading-text {
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+
+@keyframes moveWave {
+    0% {
+        left: -100%;
+    }
+    50% {
+        left: 50%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+/* Tạo hiệu ứng chữ nháy kiểu hacker */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #00ff00; /* Màu chữ sáng giống như trong hiệu ứng hacker */
+    text-shadow: 0px 0px 10px #00ff00, 0px 0px 20px #00ff00; /* Tạo hiệu ứng sáng cho chữ */
+    animation: blink 1s infinite; /* Áp dụng hiệu ứng nháy */
+    margin-bottom: 20px;
+    text-align: center;
+}

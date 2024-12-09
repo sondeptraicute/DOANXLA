@@ -1,0 +1,3 @@
+Flask==2.3.2  # Framework web
+opencv-python==4.8.0.76  # Thư viện xử lý ảnh OpenCV
+numpy==1.25.2  # Thư viện tính toán số học

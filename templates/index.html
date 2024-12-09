@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <video autoplay loop muted playsinline id="bg">
+        <source src="/static/153079-804706258_small.mp4" type="video/mp4">
+    </video>
+    <!-- Main content -->
+    <h1>Nhóm 5 - Xác Nhận Và Đếm Đối Tượng Trong Ảnh </h1>
+    <div id="detection-options" class="section">
+        <h2>Select Detection Mode</h2>
+        <button type="button" onclick="toggleMode('file')">Upload an Image</button>
+        <button type="button" onclick="toggleMode('webcam')">Use Webcam</button>
+    </div>
+
+    <!-- Phần Upload File -->
+    <div id="upload-section" class="section" style="display: none;">
+        <h2>Upload an Image</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+            <label for="file-upload" class="custom-file-upload">Choose a File</label>
+            <input id="file-upload" type="file" name="file" required onchange="previewImage(event)">
+            <p class="file-name" id="file-name">No file selected</p>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="image-preview" style="display: none;">
+            <h3>Uploaded Image</h3>
+            <img id="preview" alt="Uploaded Image Preview">
+        </div>
+    </div>
+
+    <!-- Phần Webcam -->
+    <div id="webcam-section" class="section" style="display: none;">
+        <h2>Live Webcam Detection</h2>
+        <button type="button" onclick="startWebcam()">Start Webcam</button>
+        <button type="button" onclick="stopWebcam()">Stop Webcam</button>
+        <div id="webcam-container">
+            <img src="/video_feed" id="webcam" alt="Webcam Stream" style="width: 700px; border: 2px solid #fff; display: none;">
+        </div>
+    </div>
+
+    <!-- Hiển thị kết quả -->
+    {% if uploaded_image %}
+        <h2>Result</h2>
+        <div>
+            <img src="/static/output/{{ uploaded_image }}" alt="Uploaded Image">
+            <h3>Processed Image:</h3>
+            <img src="/static/output/{{ result_image }}" alt="Result Image">
+        </div>
+        <h3>Object Counts:</h3>
+        <ul>
+            {% for label, count in counts.items() %}
+                <li>{{ label }}: {{ count }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Loading animation -->
+    <div class="loading" id="loading">
+        <div class="loading-content">
+            <span class="loading-text">Analyzing image... Please wait!</span>
+        </div>
+    </div>
+
+    <script>
+        // Khi trang tải xong, webcam không hiển thị
+        document.addEventListener("DOMContentLoaded", function() {
+            const webcam = document.getElementById('webcam');
+            webcam.style.display = 'none';
+        });
+
+        // Hiển thị loading khi upload file
+        function showLoading() {
+            document.getElementById('loading').style.display = 'flex';
+            setTimeout(function () {
+                document.getElementById('loading').style.display = 'none';
+            }, 1500); // 1.5 seconds delay
+        }
+
+        function toggleMode(mode) {
+            const uploadSection = document.getElementById('upload-section');
+            const webcamSection = document.getElementById('webcam-section');
+            if (mode === 'file') {
+                uploadSection.style.display = 'block';
+                webcamSection.style.display = 'none';
+                // Khi chuyển sang chế độ upload, tắt webcam
+                stopWebcam();
+            } else if (mode === 'webcam') {
+                uploadSection.style.display = 'none';
+                webcamSection.style.display = 'block';
+            }
+        }
+
+        // Bật webcam
+        function startWebcam() {
+            const webcam = document.getElementById('webcam');
+            webcam.style.display = 'block';
+            webcam.src = "/video_feed"; // Nguồn stream từ backend Flask
+        }
+
+        // Tắt webcam
+        function stopWebcam() {
+            const webcam = document.getElementById('webcam');
+            webcam.style.display = 'none';
+            webcam.src = ""; // Ngừng stream
+        }
+
+        // Cập nhật tên file khi chọn ảnh
+        function updateFileName() {
+            const fileInput = document.getElementById('file-upload');
+            const fileName = document.getElementById('file-name');
+            fileName.textContent = fileInput.files.length > 0 
+                ? fileInput.files[0].name 
+                : 'No file selected';
+        }
+
+        // Preview the uploaded image
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    document.getElementById('image-preview').style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                document.getElementById('image-preview').style.display = 'none';
+            }
+            updateFileName();
+        }
+    </script>
+</body>
+</html>
