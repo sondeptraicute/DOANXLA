@@ -57,8 +57,15 @@ Chạy `app.py` để bắt đầu ứng dụng Flask. Ứng dụng sẽ đượ
 - `/video_feed`: Trả về video stream từ webcam và phát hiện đối tượng trong thời gian thực.
 ```
 ## Kết Quả Thực Nghiệm
-Webcam: ![Screenshot 2024-12-08 135408](https://github.com/user-attachments/assets/25675242-0c46-440b-bcb7-b7462775a207)
-Ảnh: ![Screenshot 2024-12-08 125145](https://github.com/user-attachments/assets/6d85f079-af76-4d67-ac04-888afb1e7ed6)
+
+### Webcam
+![Screenshot 2024-12-08 135408](https://github.com/user-attachments/assets/25675242-0c46-440b-bcb7-b7462775a207)
+
+### Ảnh
+![Screenshot 2024-12-08 125145](https://github.com/user-attachments/assets/6d85f079-af76-4d67-ac04-888afb1e7ed6)
+
 ![Screenshot 2024-12-08 125449](https://github.com/user-attachments/assets/22d01767-05e8-4068-a927-a941a2fa8acd)
+
 ![Screenshot 2024-12-08 125349](https://github.com/user-attachments/assets/b1a1c05d-8cea-41b3-9db3-dfb9852cb4f1)
+
 
